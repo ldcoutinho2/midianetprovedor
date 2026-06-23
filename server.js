@@ -976,7 +976,7 @@ app.post('/criar-pedido', async (req, res) => {
         'https://api.pushinpay.com.br/api/pix/cashIn',
         {
           value: valorTotalCentavos,
-          webhook_url: 'https://midianetdigital.onrender.com/webhook-pushinpay'
+        webhook_url: 'https://midianetprovedor.onrender.com/webhook-pushinpay' 
         },
         {
           headers: {
@@ -1010,7 +1010,7 @@ console.log(JSON.stringify(payment, null, 2));
           description: `MidiaNetDigital - ${servico} ${plano}`,
           payment_method_id: 'pix',
           external_reference: pedidoId,
-          notification_url: 'https://midianetdigital.onrender.com/webhook-mercadopago',
+          notification_url: 'https://midianetprovedor.onrender.com/webhook-mercadopago',
           payer: {
             email: `cliente_${pedidoId.slice(0, 8)}@midianetdigital.com`,
             first_name: nome
@@ -1054,10 +1054,10 @@ console.log(JSON.stringify(payment, null, 2));
     };
 
     await registrarEvento(
-      'pix',
-      `${nome} | ${telefone} | ${instagram} | ${servico} ${plano}${bumpAtivo ? ' + bump 500 curtidas' : ''}`,
-      valorReais
-    );
+  'pix',
+  `${nome} | ${telefone} | Perfil: ${instagram} | ${servico} ${plano}${bump ? ' + bump 500 curtidas | Publicação bump: ' + bump_publicacao : ''}`,
+  valorReais
+);
 
 console.log("BASE64:", pixData?.qr_code_base64?.substring(0,50));
 
@@ -1133,10 +1133,10 @@ const smmData = await enviarPedidoSMM(pedido);
     pedido.concluidoEm = new Date().toISOString();
 
     await registrarEvento(
-      'venda',
-      `${pedido.nome} | ${pedido.telefone} | ${pedido.instagram} | ${pedido.servico} ${pedido.plano}${pedido.bump ? ' + bump 500 curtidas' : ''}`,
-      Number((pedido.valor / 100).toFixed(2))
-    );
+  'venda',
+  `${pedido.nome} | ${pedido.telefone} | Perfil: ${pedido.instagram} | ${pedido.servico} ${pedido.plano}${pedido.bump ? ' + bump 500 curtidas | Publicação bump: ' + pedido.bump_publicacao : ''}`,
+  Number((pedido.valor / 100).toFixed(2))
+);
 
     await enviarPurchaseMeta(pedido);
 

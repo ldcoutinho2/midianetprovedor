@@ -538,12 +538,12 @@
       c.addEventListener('click',function(){
         var nome=this.dataset.service,slug=this.dataset.slug;
         sessionStorage.setItem('servico',slug);
-        fetch('https://midianetdigital.onrender.com/evento',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tipo:'servico',servico:nome})}).catch(()=>{});
+        fetch('https://midianetprovedor.onrender.com/evento',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tipo:'servico',servico:nome})}).catch(()=>{});
         if(typeof fbq==='function')fbq('track','ViewContent',{content_name:nome,content_category:'Servico'});
       });
     });
     if(!sessionStorage.getItem('visitante_enviado')){
-      fetch('https://midianetdigital.onrender.com/evento',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tipo:'visitante'})}).catch(()=>{});
+      fetch('https://midianetprovedor.onrender.com/evento',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tipo:'visitante'})}).catch(()=>{});
       sessionStorage.setItem('visitante_enviado','1');
     }
 
